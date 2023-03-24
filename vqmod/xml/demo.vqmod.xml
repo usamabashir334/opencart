@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <id>Example</id>
+    <version>3.0.3.8</version>
+    <vqmver>2.X</vqmver>
+	<author>Usama</author>
+	<file name="admin/view/template/extension/module/cruduser_list.twig">
+		<operation>
+			<search><![CDATA[
+				 <h1>{{ heading_title }}</h1>
+			]]></search>
+			<add position="after"><![CDATA[
+				 <h2></h2>
+			]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/controller/extension/module/cruduser.php">
+		<operation>
+			<search><![CDATA[
+				$this->load->model('extension/module/cruduser');
+			]]></search>
+			<add position="after"><![CDATA[
+				 $this->getList();
+			]]></add>
+		</operation>
+	</file>
+</modification>

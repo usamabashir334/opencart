@@ -1,0 +1,78 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-cruduser" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-cruduser" class="form-horizontal">
+          <div class="form-group required">
+            <label class="col-sm-2 control-label">{{ entry_name }}</label>
+            <div class="col-sm-10">
+                <input type="text" name="cruduser_name" value="{{ cruduser_name }}" placeholder="{{ entry_name }}" class="form-control" />
+                {% if error_name %}
+                  <div class="text-danger">{{ error_name }}</div>
+                {% endif %}
+            </div>
+          </div>  
+          <div class="form-group required">  
+            <label class="col-sm-2 control-label">{{ entry_phone }}</label>
+            <div class="col-sm-10">
+                <input type="text" name="phone_number" id="phone_number" value="{{ phone_number }}" placeholder="{{ entry_phone }}" class="form-control" />
+                {% if error_phone %}
+                  <div class="text-danger">{{ error_phone }}</div>
+                {% endif %}
+                <div id="error_check">
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+            </div>
+          </div>
+        </form>
+
+<script type="text/javascript">
+  $('#phone_number').on('change', function() {
+    phone_number = $('#phone_number').val(); 
+    
+    if(phone_number.length < 10 ||phone_number.length > 13){
+      //alert("Phone Number must be between 10 and 13 characters");
+
+       $('#error_check').html('<div class="text-danger">Phone Number must be between 10 and 13 characters</div>');
+
+    }else if (!phone_number.match(/^((\+92)?(92)?(0)?)(3)([0-9]{9})$/i)){
+
+       $('#error_check').html('<div class="text-danger">Phone Number should be only numeric value! <br>Valid Format: +923######### | 923######### | 03#########</div>');
+    }else{
+      $('#error_check').html('');
+    }
+  });
+</script>
+
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
